@@ -1,0 +1,73 @@
+﻿{
+  "root": true,
+  "parser": "@babel/eslint-parser",
+  "plugins": [
+    "react"
+  ],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "standard",
+    "standard-react",
+    "plugin:import/typescript",
+    "prettier"
+  ],
+  "rules": {
+    "no-unused-expressions": 0,
+    "semi": ["error", "never"],
+    "react/prop-types": [2, { "skipUndeclared": true }],
+    "no-console": ["error", { "allow": ["warn", "error"] }],
+    "jsx-quotes": ["error", "prefer-single"],
+    "react/no-unsafe": ["error"],
+    "no-use-before-define": "off",
+    "no-unused-vars": "off"
+  },
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "globals": {
+    "localStorage": false
+  },
+  "settings": {
+    "typescript": {
+      "directory": "../tsconfig.json"
+    },
+    "import/parsers": {
+      " @typescript-eslint/parser": [" .ts", ".tsx" ]
+    },
+    "react": {
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "version": "17.0.1"
+    }
+  },
+  "overrides":[
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "plugins": ["@typescript-eslint"],
+      "parser": "@typescript-eslint/parser",
+      "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "rules": {
+        "no-use-before-define": "off",
+        "no-console": ["error", { "allow": ["warn", "error"] }],
+        "@typescript-eslint/quotes": ["error", "single", { "allowTemplateLiterals": true }],
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "@typescript-eslint/no-explicit-any": ["off"],
+        "@typescript-eslint/no-unused-vars": ["error", {"ignoreRestSiblings": true}],
+        "@typescript-eslint/ban-ts-comment": "off"
+      }
+    }
+  ]
+}
