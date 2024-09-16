@@ -8,6 +8,7 @@ import Box from '@mui/material/Box'
 import DashboardIcon from '@mui/icons-material/Dashboard'
 import DonutLargeIcon from '@mui/icons-material/DonutLarge'
 import BarChartIcon from '@mui/icons-material/BarChart'
+import Logo from './assets/logos/course-logo.png'
 
 // Style
 import { createTheme } from '@mui/material/styles'
@@ -18,7 +19,7 @@ import CoursesHomePage from './pages/CoursesHomePage'
 const NAVIGATION: Navigation = [
   {
     kind: 'header',
-    title: 'Main items',
+    title: 'Principal',
   },
   {
     segment: 'dashboard',
@@ -31,7 +32,7 @@ const NAVIGATION: Navigation = [
   },
   {
     kind: 'header',
-    title: 'Analytics',
+    title: 'Monitoramento',
   },
   {
     segment: 'reports',
@@ -52,7 +53,7 @@ const demoTheme = createTheme({
   cssVariables: {
     colorSchemeSelector: 'data-toolpad-color-scheme',
   },
-  colorSchemes: { light: true, dark: true },
+
   breakpoints: {
     values: {
       xs: 0,
@@ -70,16 +71,8 @@ function Layout({ pathname }: { pathname: string }) {
       return <CoursesHomePage />
     case '/reports':
       return (
-        <Box
-          sx={{
-            py: 4,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-          }}
-        >
-         sem nada
+        <Box>
+          reports
         </Box>
       )
     default:
@@ -93,7 +86,7 @@ function Layout({ pathname }: { pathname: string }) {
             textAlign: 'center',
           }}
         >
-          
+          Default
         </Box>
       )
   }
@@ -117,12 +110,20 @@ export default function DashboardLayoutBasic() {
   return (
 
     <AppProvider
+      branding={{
+        logo: <img src={Logo} />,
+        title: 'Watch Courses',
+      }}
       navigation={NAVIGATION}
       router={router}
       theme={demoTheme}
     >
       <DashboardLayout>
-        <Layout pathname={pathname} />
+        <Box sx={{
+          padding: '24px'
+        }}>
+          <Layout pathname={pathname} />
+        </Box>
       </DashboardLayout>
     </AppProvider>
 
