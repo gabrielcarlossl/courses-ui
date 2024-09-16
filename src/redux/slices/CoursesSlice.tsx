@@ -1,16 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Course, FormState } from '../Types/Courses'
 
-interface Course {
-  id: number
-  name: string
-  description: string
-}
-
-interface FormState {
-  status: 'idle' | 'SUBMIT_COURSE_SUCCESS' | 'SUBMIT_COURSE_FAILURE' | 'GET_ALL_COURSES_SUCCESS' | 'GET_ALL_COURSES_FAILURE'
-  error: string | null
-  data: Course[]
-}
 
 const initialState: FormState = {
   status: 'idle',
