@@ -12,6 +12,7 @@ import './index.css'
 // Redux
 import { Provider } from 'react-redux'
 import { store } from './redux/Store.tsx'
+import { StyledEngineProvider } from '@mui/material'
 
 const colors = {
   brand: {
@@ -27,7 +28,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <ChakraProvider theme={theme}>
       <Provider store={store}>
-        <App />
+        <StyledEngineProvider injectFirst>
+          <App />
+        </StyledEngineProvider>
       </Provider>
     </ChakraProvider>
   </StrictMode>,

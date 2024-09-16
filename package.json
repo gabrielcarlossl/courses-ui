@@ -9,10 +9,18 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "dependencies": {
+  "dependencies": {    
+    "@toolpad/core": "latest",
+    "@types/invariant": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "invariant": "latest",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
+    "@mui/icons-material": "^6.1.0",
+    "@mui/material": "^6.1.0",
+    "@mui/styled-engine-sc": "^6.1.0",
     "@reduxjs/toolkit": "^2.2.7",
     "axios": "^1.7.7",
     "final-form": "^4.20.10",
@@ -21,7 +29,8 @@
     "react-dom": "^18.3.1",
     "react-final-form": "^6.5.9",
     "react-redux": "^9.1.2",
-    "redux": "^5.0.1"
+    "redux": "^5.0.1",
+    "styled-components": "^6.1.13"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
