@@ -65,7 +65,9 @@ console.log('pathname', pathname)
     >
       <DashboardLayout>
         <Box sx={{
-          padding: '24px'
+          padding: '24px',
+          background: '#1565c024',
+          minHeight: 'calc(100vh - 64px)'
         }}>
           <Navigator pathname={pathname} />
         </Box>
