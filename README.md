@@ -27,3 +27,9 @@ What things you need to install the software and how to install them
 
 * **Gabriel Carlos** - *Initial work, Setup, Layout development, backend integration* - [Gabriel Carlos](https://github.com/gabrielcarlossl)
 
+### Possible future improvements
+
+- Increase componentization
+- Refactor Redux, separate the actions and reducer
+- Add more validations to form
+- Add lazy loading on homepage 
