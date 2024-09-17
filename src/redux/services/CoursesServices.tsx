@@ -11,6 +11,7 @@ import {
   getAllCoursesRequest,
   getAllCoursesSuccess,
   submitCourseFailure,
+  submitCourseRequest,
   submitCourseSuccess
 } from '../slices/CoursesSlice'
 
@@ -19,12 +20,37 @@ import { COURSES_ENDPOINT } from '../../utils/Constants'
 import { toast } from 'react-toastify'
 
 export const submitFormService = (values: any) => async (dispatch: AppDispatch): Promise<void> => {
+
+  const notifySuccess = () => toast.success('Curso Criado!')
+  const notifyError = () => toast.error('Erro ao criar curso.')
+
+  dispatch(submitCourseRequest())
+
+  const formData = new FormData()
+  formData.append('course[title]', values.title)
+  formData.append('course[start_date]', values.start_date)
+  formData.append('course[end_date]', values.end_date)
+  formData.append('course[knowledge_area]', values.knowledge_area)
+  formData.append('course[description]', values.description)
+
+  if (values.attachment && values.attachment) {
+    formData.append('course[attachment]', values.attachment)
+  }
   try {
-    await axios.post(COURSES_ENDPOINT, values)
-    dispatch(submitCourseSuccess())
+    const response = await fetch(COURSES_ENDPOINT, {
+      method: 'POST',
+      body: formData,
+    })
+
+    if (response.status === 201) {
+      dispatch(submitCourseSuccess())
+      notifySuccess()
+    }
+
   } catch (error: any) {
     console.error('Error creating course:', error)
     dispatch(submitCourseFailure(error.message))
+    notifyError()
   }
 }
 

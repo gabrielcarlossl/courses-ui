@@ -14,12 +14,18 @@ const CoursesSlice = createSlice({
   name: 'form_course',
   initialState,
   reducers: {
+    submitCourseRequest(state) {
+      state.status = 'SUBMIT_COURSE_REQUEST'
+      state.isLoading = true
+    },
     submitCourseSuccess(state) {
       state.status = 'SUBMIT_COURSE_SUCCESS'
+      state.isLoading = false
     },
     submitCourseFailure(state, action: PayloadAction<string>) {
       state.status = 'SUBMIT_COURSE_FAILURE'
       state.error = action.payload
+      state.isLoading = false
     },
     getAllCoursesRequest(state) {
       state.status = 'GET_ALL_COURSES_REQUEST'
@@ -53,6 +59,7 @@ const CoursesSlice = createSlice({
 })
 
 export const {
+  submitCourseRequest,
   submitCourseSuccess,
   submitCourseFailure,
   getAllCoursesRequest,
