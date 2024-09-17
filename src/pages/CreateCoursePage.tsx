@@ -1,10 +1,14 @@
-import React from 'react'
 import CourseForm from '../components/form/CourseForm'
-import { Text } from '@chakra-ui/react'
-
-
+import { Divider, Text } from '@chakra-ui/react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../redux/Store'
+import FormLoading from '../components/loading/FormLoading'
 
 const CreateCoursePage = () => {
+
+  const { isSaving } = useSelector((state: RootState) => state.CoursesSlice)
+
+
   return (
     <div>
       <Text
@@ -16,10 +20,14 @@ const CreateCoursePage = () => {
         }}
         as='h1'
       >
-        Criação de curso
+        Cadastro de curso
       </Text>
 
-      <CourseForm />
+      <Divider sx={{ borderBottom: '1px solid #434343', marginBlock: '0.5rem' }} />
+
+      {
+        isSaving ? <FormLoading /> : <CourseForm />
+      }
     </div>
   )
 }

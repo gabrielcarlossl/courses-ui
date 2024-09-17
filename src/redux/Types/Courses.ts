@@ -6,6 +6,7 @@ export interface FormState {
   error: string | null
   data: Course[]
   isLoading: boolean
+  isSaving: boolean
 }
 
 

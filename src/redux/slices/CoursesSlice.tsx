@@ -6,7 +6,8 @@ const initialState: FormState = {
   status: 'idle',
   error: null,
   data: [],
-  isLoading: false
+  isLoading: false,
+  isSaving: false
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -16,16 +17,16 @@ const CoursesSlice = createSlice({
   reducers: {
     submitCourseRequest(state) {
       state.status = 'SUBMIT_COURSE_REQUEST'
-      state.isLoading = true
+      state.isSaving = true
     },
     submitCourseSuccess(state) {
       state.status = 'SUBMIT_COURSE_SUCCESS'
-      state.isLoading = false
+      state.isSaving = false
     },
     submitCourseFailure(state, action: PayloadAction<string>) {
       state.status = 'SUBMIT_COURSE_FAILURE'
       state.error = action.payload
-      state.isLoading = false
+      state.isSaving = false
     },
     getAllCoursesRequest(state) {
       state.status = 'GET_ALL_COURSES_REQUEST'
