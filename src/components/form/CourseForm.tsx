@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Field } from 'react-final-form'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../redux/Store'
 import { submitFormService } from '../../redux/services/CoursesServices'
-import { Box, Button, styled } from '@mui/material'
+import { Box, styled, Typography } from '@mui/material'
 
-// Função para validação dos campos
 const validate = (values: any, file: File | null) => {
   const errors: any = {}
   if (!values.title) {
@@ -20,7 +19,7 @@ const validate = (values: any, file: File | null) => {
   if (!values.knowledge_area) {
     errors.knowledge_area = '*A área de conhecimento é obrigatória'
   }
-  if (!file) { // Verifica o arquivo diretamente do estado
+  if (!file) {
     errors.attachment = '*O upload do arquivo é obrigatório'
   }
   if (!values.description) {
@@ -35,8 +34,27 @@ const FormLabel = styled('label')({
   fontSize: '18px',
   marginRight: '8px'
 })
-const FormInput = styled('input')({
 
+const FormInput = styled('input')({
+  display: 'none'
+})
+
+const Button = styled('button')({
+  background: '#1565c0',
+  padding: '8px 15px',
+  borderRadius: '32px',
+  color: '#fff',
+  '&:hover': {
+    opacity: 0.7
+  },
+  '&:active': {
+    background: '#073364'
+  },
+  '&:disabled': {
+    background: '#bebebe',
+    cursor: 'not-allowed',
+    opacity: 1
+  }
 })
 const MetaErrorSpan = styled('span')({
   color: '#ff6767',
@@ -56,10 +74,12 @@ const AuxContainer = styled(Box)({
 const CourseForm = () => {
   const dispatch = useDispatch<AppDispatch>()
   const [file, setFile] = useState<File | null>(null)
+  const [fileName, setFileName] = useState<string>('Nenhum arquivo selecionado')
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setFile(e.target.files[0])
+      setFileName(e.target.files[0].name)
     }
   }
 
@@ -67,6 +87,10 @@ const CourseForm = () => {
     const formData = { ...values, attachment: file }
     dispatch(submitFormService(formData))
   }
+
+  useEffect(() => {
+    document.title = "Stremio Courses | Cadastrar"
+  }, [])
 
   return (
     <Form
@@ -120,7 +144,6 @@ const CourseForm = () => {
               <AuxContainer>
                 <FormLabel>Área de Conhecimento:</FormLabel>
                 <Field name="knowledge_area" component="input" type="text" placeholder="Área de Conhecimento" />
-
               </AuxContainer>
               <Field name="knowledge_area" subscription={{ error: true, touched: true }}>
                 {({ meta }) => meta.touched && meta.error ? <MetaErrorSpan>{meta.error}</MetaErrorSpan> : null}
@@ -130,7 +153,16 @@ const CourseForm = () => {
             <FieldContainer>
               <AuxContainer>
                 <FormLabel>Upload de Arquivo:</FormLabel>
-                <FormInput name="attachment" type="file" onChange={handleFileChange} />
+                <FormInput
+                  name="attachment"
+                  type="file"
+                  onChange={handleFileChange}
+                  id="file-upload"
+                />
+                <Button onClick={() => document.getElementById('file-upload')?.click()} type="button">
+                  Selecionar Arquivo
+                </Button>
+                <Typography component='span' ml='8px'>{fileName}</Typography>
               </AuxContainer>
               <Field name="attachment" subscription={{ error: true, touched: true }}>
                 {({ meta }) => meta.touched && meta.error ? <MetaErrorSpan>{meta.error}</MetaErrorSpan> : null}
@@ -156,7 +188,6 @@ const CourseForm = () => {
               <Button
                 sx={{
                   fontWeight: 600,
-
                 }}
                 type="submit"
                 disabled={submitting || pristine}
@@ -165,9 +196,7 @@ const CourseForm = () => {
               </Button>
               <Button
                 sx={{
-
                   fontWeight: 600,
-
                 }}
                 type="button"
                 onClick={form.reset}
