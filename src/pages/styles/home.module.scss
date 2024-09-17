@@ -1,11 +1,12 @@
 .title {
   font-weight: 600;
   font-size: 28px;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .cards_container {
   display: flex;
-  gap: 32px;
   flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
 }
