@@ -15,6 +15,7 @@ const CoursesManagement = () => {
 
   React.useEffect(() => {
     dispatch(getAllCoursesService())
+    document.title = "Stremio Courses | Gerenciar"
   }, [])
 
   return (

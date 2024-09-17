@@ -2,7 +2,7 @@
 import React from 'react'
 
 // Components
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Divider, Text } from '@chakra-ui/react'
 
 // Redux
 import { getAllCoursesService } from '../redux/services/CoursesServices'
@@ -23,11 +23,14 @@ const CoursesHomePage = () => {
 
   React.useEffect(() => {
     dispatch(getAllCoursesService())
+    document.title = "Stremio Courses | Assistir"
   }, [])
 
   return (
     <Box>
       <Text as='h1' color='#434343' className={styles.title}>Recentes</Text>
+      <Divider sx={{ borderBottom: '1px solid #434343', marginBottom: '2rem' }}  />
+
       {
         data.length === 0 ? <h1>Não há cursos cadastrados!</h1> :
           <Box className={styles.cards_container}>
