@@ -1,9 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
+
+// Components
+import { Box } from '@chakra-ui/react'
+
+// Redux
+import { getAllCoursesService } from '../redux/services/CoursesServices'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../redux/Store'
-import { Box } from '@chakra-ui/react'
-import { getAllCoursesService } from '../redux/services/CoursesServices'
+
+// Styles
+import styles from './styles/home.module.scss'
+import VideoCard from '../components/card/VideoCard'
 
 const CoursesHomePage = () => {
 
@@ -18,11 +26,22 @@ const CoursesHomePage = () => {
 
   return (
     <Box>
+
+      <h1 className={styles.title}>Recentes</h1>
+
       {
         data.map((item) => {
           return (
 
-            <div key={item.id}>{item.title}</div>
+            <VideoCard
+              key={item.id}
+              course_title={item.title}
+              description={item.description}
+              knowledge_area={item.knowledge_area}
+              url={item.attachment_url}
+              start_date={item.start_date}
+              end_date={item.end_date}
+            />
           )
         })
       }
