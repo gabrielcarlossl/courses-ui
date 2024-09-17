@@ -16,4 +16,5 @@ export interface Course {
   end_date: string
   knowledge_area: string
   attachment_url: string
+  description: string
 }

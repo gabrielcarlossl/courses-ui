@@ -35,6 +35,7 @@ export const {
   submitCourseSuccess,
   submitCourseFailure,
   getAllCoursesSuccess,
-  getAllCoursesFailure } = CoursesSlice.actions
+  getAllCoursesFailure
+} = CoursesSlice.actions
 
 export default CoursesSlice.reducer
