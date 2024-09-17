@@ -5,6 +5,7 @@ import axios from 'axios'
 import { AppDispatch } from '../Store'
 import {
   getAllCoursesFailure,
+  getAllCoursesRequest,
   getAllCoursesSuccess,
   submitCourseFailure,
   submitCourseSuccess
@@ -25,6 +26,7 @@ export const submitFormService = (values: any) => async (dispatch: AppDispatch):
 }
 
 export const getAllCoursesService = () => async (dispatch: AppDispatch): Promise<void> => {
+  dispatch(getAllCoursesRequest())
   try {
     const response = await axios.get(COURSES_ENDPOINT)
     dispatch(getAllCoursesSuccess(response.data))

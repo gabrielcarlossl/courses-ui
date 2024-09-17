@@ -5,7 +5,8 @@ import { Course, FormState } from '../Types/Courses'
 const initialState: FormState = {
   status: 'idle',
   error: null,
-  data: []
+  data: [],
+  isLoading: false
 }
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -20,13 +21,19 @@ const CoursesSlice = createSlice({
       state.status = 'SUBMIT_COURSE_FAILURE'
       state.error = action.payload
     },
+    getAllCoursesRequest(state) {
+      state.status = 'GET_ALL_COURSES_REQUEST'
+      state.isLoading = true
+    },
     getAllCoursesSuccess(state, action: PayloadAction<Course[]>) {
       state.status = 'GET_ALL_COURSES_SUCCESS'
       state.data = action.payload
+      state.isLoading = false
     },
     getAllCoursesFailure(state, action: PayloadAction<string>) {
       state.status = 'GET_ALL_COURSES_FAILURE'
       state.error = action.payload
+      state.isLoading = false
     }
   }
 })
@@ -34,6 +41,7 @@ const CoursesSlice = createSlice({
 export const {
   submitCourseSuccess,
   submitCourseFailure,
+  getAllCoursesRequest,
   getAllCoursesSuccess,
   getAllCoursesFailure
 } = CoursesSlice.actions

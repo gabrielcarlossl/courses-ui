@@ -2,9 +2,10 @@
 
 
 export interface FormState {
-  status: 'idle' | 'SUBMIT_COURSE_SUCCESS' | 'SUBMIT_COURSE_FAILURE' | 'GET_ALL_COURSES_SUCCESS' | 'GET_ALL_COURSES_FAILURE'
+  status: 'idle' | 'SUBMIT_COURSE_SUCCESS' | 'SUBMIT_COURSE_FAILURE' | 'GET_ALL_COURSES_SUCCESS' | 'GET_ALL_COURSES_REQUEST' | 'GET_ALL_COURSES_FAILURE'
   error: string | null
   data: Course[]
+  isLoading: boolean
 }
 
 
