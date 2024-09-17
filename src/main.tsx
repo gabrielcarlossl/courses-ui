@@ -16,12 +16,12 @@ import { ChakraProvider } from '@chakra-ui/react'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <ChakraProvider theme={ChakraTheme}>
-      <Provider store={store}>
-        <StyledEngineProvider injectFirst>
+    <Provider store={store}>
+      <StyledEngineProvider injectFirst>
+        <ChakraProvider theme={ChakraTheme}>
           <App />
-        </StyledEngineProvider>
-      </Provider>
-    </ChakraProvider>
+        </ChakraProvider>
+      </StyledEngineProvider>
+    </Provider>
   </StrictMode>,
 )

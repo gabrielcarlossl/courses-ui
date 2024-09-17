@@ -3,6 +3,24 @@ import BarChartIcon from '@mui/icons-material/BarChart'
 import { Navigation } from '@toolpad/core'
 import VideoSettingsIcon from '@mui/icons-material/VideoSettings'
 import OndemandVideoIcon from '@mui/icons-material/OndemandVideo'
+import CoursesHomePage from '../pages/CoursesHomePage'
+import StorageUsagePage from '../pages/StorageUsagePage'
+import CoursesManagement from '../pages/CoursesManagement'
+
+export function Navigator({ pathname }: { pathname: string }) {
+  switch (pathname) {
+    case '/dashboard':
+      return <CoursesHomePage />
+    case '/storage/storage' :
+      return <StorageUsagePage />
+    case '/storage' :
+      return <StorageUsagePage />
+    case '/management':
+      return <CoursesManagement />
+    default:
+      return <CoursesHomePage />
+  }
+}
 
 export const NAVIGATION: Navigation = [
   {
@@ -34,12 +52,12 @@ export const NAVIGATION: Navigation = [
     title: 'Monitoramento',
   },
   {
-    segment: 'analytics',
+    segment: 'storage',
     title: 'Reports',
     icon: <BarChartIcon />,
     children: [
       {
-        segment: 'analytics',
+        segment: 'storage',
         title: 'Uso de Memória',
         icon: <DonutLargeIcon />,
       },
