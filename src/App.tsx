@@ -1,71 +1,20 @@
 import * as React from 'react'
-import type { Router, Navigation } from '@toolpad/core'
+import type { Router } from '@toolpad/core'
+import { AppProvider } from '@toolpad/core/AppProvider'
+import { NAVIGATION } from './routes/root'
 
 // Components 
 import Box from '@mui/material/Box'
 
 // Assets
-import DashboardIcon from '@mui/icons-material/Dashboard'
-import DonutLargeIcon from '@mui/icons-material/DonutLarge'
-import BarChartIcon from '@mui/icons-material/BarChart'
 import Logo from './assets/logos/course-logo.png'
 
 // Style
-import { createTheme } from '@mui/material/styles'
-import { AppProvider } from '@toolpad/core/AppProvider'
 import { DashboardLayout } from '@toolpad/core/DashboardLayout'
 import CoursesHomePage from './pages/CoursesHomePage'
+import { Theme } from './utils/StyleConstants'
 
-const NAVIGATION: Navigation = [
-  {
-    kind: 'header',
-    title: 'Principal',
-  },
-  {
-    segment: 'dashboard',
-    title: 'Cursos',
-    icon: <DashboardIcon />,
-  },
-
-  {
-    kind: 'divider',
-  },
-  {
-    kind: 'header',
-    title: 'Monitoramento',
-  },
-  {
-    segment: 'reports',
-    title: 'Reports',
-    icon: <BarChartIcon />,
-    children: [
-      {
-        segment: 'sales',
-        title: 'Uso de Memória',
-        icon: <DonutLargeIcon />,
-      },
-
-    ],
-  },
-]
-
-const demoTheme = createTheme({
-  cssVariables: {
-    colorSchemeSelector: 'data-toolpad-color-scheme',
-  },
-
-  breakpoints: {
-    values: {
-      xs: 0,
-      sm: 600,
-      md: 600,
-      lg: 1200,
-      xl: 1536,
-    },
-  },
-})
-
-function Layout({ pathname }: { pathname: string }) {
+function Navigator({ pathname }: { pathname: string }) {
   switch (pathname) {
     case '/dashboard':
       return <CoursesHomePage />
@@ -92,12 +41,10 @@ function Layout({ pathname }: { pathname: string }) {
   }
 }
 
-
-export default function DashboardLayoutBasic() {
-
+export default function LayoutBasic() {
 
   const [pathname, setPathname] = React.useState('/dashboard')
-
+console.log('pathname', pathname)
   const router = React.useMemo<Router>(() => {
     return {
       pathname,
@@ -106,26 +53,23 @@ export default function DashboardLayoutBasic() {
     }
   }, [pathname])
 
-
   return (
-
     <AppProvider
       branding={{
         logo: <img src={Logo} />,
-        title: 'Watch Courses',
+        title: 'Stremio Courses',
       }}
       navigation={NAVIGATION}
       router={router}
-      theme={demoTheme}
+      theme={Theme}
     >
       <DashboardLayout>
         <Box sx={{
           padding: '24px'
         }}>
-          <Layout pathname={pathname} />
+          <Navigator pathname={pathname} />
         </Box>
       </DashboardLayout>
     </AppProvider>
-
   )
 }
