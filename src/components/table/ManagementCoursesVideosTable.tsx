@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
 // Assets
@@ -17,6 +18,8 @@ import { Course } from '../../redux/Types/Courses'
 import { AppDispatch } from '../../redux/Store'
 import { useDispatch } from 'react-redux'
 import { DeleteCoursesService } from '../../redux/services/CoursesServices'
+import EditCourseModal from '../modal/EditCourseModal'
+import { FormatDatePtBr } from '../../utils/functions'
 
 const TableCellStyled = styled(TableCell)({
   color: '#434343',
@@ -31,7 +34,17 @@ const ManagementCoursesVideosTable: React.FC<IManagementCoursesVideosTableProps>
 }) => {
 
   const dispatch = useDispatch<AppDispatch>()
+  const [open, setOpen] = React.useState(false)
+  const [courseData, setCourseData] = React.useState<any>()
 
+
+  const handleOpen = (singleCourse: any) => {
+    setOpen(true)
+    setCourseData(singleCourse)
+  }
+  const handleClose = () => {
+    setOpen(false)
+  }
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }}>
@@ -42,7 +55,7 @@ const ManagementCoursesVideosTable: React.FC<IManagementCoursesVideosTableProps>
             <TableCellStyled align="right">Área de conhecimento</TableCellStyled>
             <TableCellStyled align="right">Data de Início</TableCellStyled>
             <TableCellStyled align="right">Data de Término</TableCellStyled>
-            <TableCellStyled align="center">URL do arquivo</TableCellStyled>
+            <TableCellStyled align="center">Nome Objeto AWS S3</TableCellStyled>
             <TableCellStyled align="center">Ações</TableCellStyled>
           </TableRow>
         </TableHead>
@@ -56,18 +69,18 @@ const ManagementCoursesVideosTable: React.FC<IManagementCoursesVideosTableProps>
                 <TableCell align="left">{row.title}</TableCell>
                 <TableCell align="center">{row.description ?? 'Não possui descrição'}</TableCell>
                 <TableCell align="center">{row.knowledge_area}</TableCell>
-                <TableCell align="right">{row.start_date}</TableCell>
-                <TableCell align="right">{row.end_date}</TableCell>
+                <TableCell align="right">{FormatDatePtBr(row.start_date)}</TableCell>
+                <TableCell align="right">{FormatDatePtBr(row.end_date)}</TableCell>
                 <TableCell align="right">{row.attachment_url}</TableCell>
                 <TableCell align="right">
                   <Box>
                     <Tooltip title='Editar'>
-                      <Button>
+                      <Button onClick={() => handleOpen(row)}>
                         <EditIcon />
                       </Button>
                     </Tooltip>
                     <Tooltip title='Excluir'>
-                      <Button onClick={()=> dispatch(DeleteCoursesService(row.id))}>
+                      <Button onClick={() => dispatch(DeleteCoursesService(row.id))}>
                         <DeleteIcon />
                       </Button>
                     </Tooltip>
@@ -78,6 +91,7 @@ const ManagementCoursesVideosTable: React.FC<IManagementCoursesVideosTableProps>
           })}
         </TableBody>
       </Table>
+      <EditCourseModal open={open} handleClose={handleClose} courseData={courseData} />
     </TableContainer>
   )
 }

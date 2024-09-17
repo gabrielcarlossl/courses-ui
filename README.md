@@ -33,3 +33,4 @@ What things you need to install the software and how to install them
 - Refactor Redux, separate the actions and reducer
 - Add more validations to form
 - Add lazy loading on homepage 
+- Use React Router Dom for better navigation
