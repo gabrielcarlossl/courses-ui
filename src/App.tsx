@@ -12,12 +12,12 @@ import Logo from './assets/logos/course-logo.png'
 // Style
 import { DashboardLayout } from '@toolpad/core/DashboardLayout'
 import { Theme } from './utils/StyleConstants'
-
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 export default function LayoutBasic() {
 
   const [pathname, setPathname] = React.useState('/dashboard')
-  console.log('pathname', pathname)
   const router = React.useMemo<Router>(() => {
     return {
       pathname,
@@ -44,6 +44,7 @@ export default function LayoutBasic() {
         }}>
           <Navigator pathname={pathname} />
         </Box>
+        <ToastContainer />
       </DashboardLayout>
     </AppProvider>
   )

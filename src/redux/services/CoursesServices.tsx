@@ -4,6 +4,9 @@ import axios from 'axios'
 // Redux
 import { AppDispatch } from '../Store'
 import {
+  deleteCourseFailure,
+  deleteCourseRequest,
+  deleteCourseSuccess,
   getAllCoursesFailure,
   getAllCoursesRequest,
   getAllCoursesSuccess,
@@ -13,7 +16,7 @@ import {
 
 // Utils
 import { COURSES_ENDPOINT } from '../../utils/Constants'
-
+import { toast } from 'react-toastify'
 
 export const submitFormService = (values: any) => async (dispatch: AppDispatch): Promise<void> => {
   try {
@@ -32,5 +35,21 @@ export const getAllCoursesService = () => async (dispatch: AppDispatch): Promise
     dispatch(getAllCoursesSuccess(response.data))
   } catch (error: any) {
     dispatch(getAllCoursesFailure(error.message))
+  }
+}
+
+export const DeleteCoursesService = (id: number) => async (dispatch: AppDispatch): Promise<void> => {
+  const notifySuccess = () => toast.success('Curso deletado!')
+  const notifyError = () => toast.error('Erro ao deletar Curso.')
+  dispatch(deleteCourseRequest())
+  try {
+    const response = await axios.delete(`${COURSES_ENDPOINT}/${id}`)
+    if (response.status === 204) {
+      dispatch(deleteCourseSuccess(id))
+      notifySuccess()
+    }
+  } catch (error: any) {
+    dispatch(deleteCourseFailure(error.message))
+    notifyError()
   }
 }

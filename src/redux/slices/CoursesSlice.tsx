@@ -34,6 +34,20 @@ const CoursesSlice = createSlice({
       state.status = 'GET_ALL_COURSES_FAILURE'
       state.error = action.payload
       state.isLoading = false
+    },
+    deleteCourseRequest(state) {
+      state.status = 'DELETE_COURSE_REQUEST'
+      state.isLoading = true
+    },
+    deleteCourseSuccess(state, action: PayloadAction<number>) {
+      state.status = 'DELETE_COURSE_SUCCESS'
+      state.isLoading = false
+      state.data = state.data.filter(course => course.id !== action.payload)
+    },
+    deleteCourseFailure(state, action: PayloadAction<string>) {
+      state.status = 'DELETE_COURSE_FAILURE'
+      state.error = action.payload
+      state.isLoading = false
     }
   }
 })
@@ -43,7 +57,10 @@ export const {
   submitCourseFailure,
   getAllCoursesRequest,
   getAllCoursesSuccess,
-  getAllCoursesFailure
+  getAllCoursesFailure,
+  deleteCourseRequest,
+  deleteCourseSuccess,
+  deleteCourseFailure
 } = CoursesSlice.actions
 
 export default CoursesSlice.reducer
