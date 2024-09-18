@@ -10,6 +10,10 @@ import {
   getAllCoursesFailure,
   getAllCoursesRequest,
   getAllCoursesSuccess,
+  getSingleCourseRequest,
+  submitCourseEditFailure,
+  submitCourseEditRequest,
+  submitCourseEditSuccess,
   submitCourseFailure,
   submitCourseRequest,
   submitCourseSuccess
@@ -58,9 +62,59 @@ export const getAllCoursesService = () => async (dispatch: AppDispatch): Promise
   dispatch(getAllCoursesRequest())
   try {
     const response = await axios.get(COURSES_ENDPOINT)
-    dispatch(getAllCoursesSuccess(response.data))
+    if (response.status === 200) {
+      dispatch(getAllCoursesSuccess(response.data))
+    }
   } catch (error: any) {
     dispatch(getAllCoursesFailure(error.message))
+  }
+}
+
+export const getSingleCoursesService = (id: number) => async (dispatch: AppDispatch): Promise<void> => {
+  dispatch(getSingleCourseRequest())
+  try {
+    const response = await axios.get(`${COURSES_ENDPOINT}/${id}`)
+    if (response.status === 200) {
+      dispatch(getAllCoursesSuccess(response.data))
+    }
+  } catch (error: any) {
+    dispatch(getAllCoursesFailure(error.message))
+  }
+}
+
+export const editSingleCourseService = (values: any) => async (dispatch: AppDispatch): Promise<void> => {
+
+  console.log('values', values)
+  const notifySuccess = () => toast.success('Curso editado!')
+  const notifyError = () => toast.error('Erro ao editar curso.')
+
+  dispatch(submitCourseEditRequest())
+
+  const formData = new FormData()
+  formData.append('course[title]', values.title)
+  formData.append('course[start_date]', values.start_date)
+  formData.append('course[end_date]', values.end_date)
+  formData.append('course[knowledge_area]', values.knowledge_area)
+  formData.append('course[description]', values.description)
+
+  if (values.attachment && values.attachment) {
+    formData.append('course[attachment]', values.attachment)
+  }
+  try {
+    const response = await fetch(`${COURSES_ENDPOINT}/${values.id}`, {
+      method: 'PATCH',
+      body: formData,
+    })
+
+    if (response.status === 201) {
+      dispatch(submitCourseEditSuccess())
+      notifySuccess()
+    }
+
+  } catch (error: any) {
+    console.error('Error editing course:', error)
+    dispatch(submitCourseEditFailure(error.message))
+    notifyError()
   }
 }
 

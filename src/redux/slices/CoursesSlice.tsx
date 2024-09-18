@@ -1,11 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Course, FormState } from '../Types/Courses'
+import { Course, FormState, SingleCourse } from '../Types/Courses'
 
 
 const initialState: FormState = {
   status: 'idle',
   error: null,
   data: [],
+  item: {
+    id: null,
+    title: '',
+    start_date: null,
+    end_date: null,
+    knowledge_area: '',
+    attachment_url: '',
+    description: ''
+  },
+  isLoadingSingleCourse: false,
   isLoading: false,
   isSaving: false
 }
@@ -15,6 +25,20 @@ const CoursesSlice = createSlice({
   name: 'form_course',
   initialState,
   reducers: {
+    getSingleCourseRequest(state) {
+      state.status = 'GET_SINGLE_COURSE_REQUEST'
+      state.isLoadingSingleCourse = true
+    },
+    getSingleCourseSuccess(state,  action: PayloadAction<SingleCourse>) {
+      state.status = 'GET_SINGLE_COURSE_SUCCESS'
+      state.isLoadingSingleCourse = false
+      state.item = action.payload
+    },
+    getSingleCourseFailure(state, action: PayloadAction<string>) {
+      state.status = 'GET_SINGLE_COURSE_FAILURE'
+      state.isLoadingSingleCourse = false
+      state.error = action.payload
+    },
     submitCourseRequest(state) {
       state.status = 'SUBMIT_COURSE_REQUEST'
       state.isSaving = true
@@ -55,11 +79,31 @@ const CoursesSlice = createSlice({
       state.status = 'DELETE_COURSE_FAILURE'
       state.error = action.payload
       state.isLoading = false
-    }
+    },
+    submitCourseEditRequest(state) {
+      state.status = 'SUBMIT_COURSE_EDIT_REQUEST'
+      state.isSaving = true
+    },
+    submitCourseEditSuccess(state) {
+      state.status = 'SUBMIT_COURSE_EDIT_SUCCESS'
+      state.isSaving = false
+    },
+    submitCourseEditFailure(state, action: PayloadAction<string>) {
+      state.status = 'SUBMIT_COURSE_EDIT_FAILURE'
+      state.error = action.payload
+      state.isSaving = false
+    },
+
   }
 })
 
 export const {
+  submitCourseEditRequest,
+  submitCourseEditSuccess,
+  submitCourseEditFailure,
+  getSingleCourseRequest,
+  getSingleCourseSuccess,
+  getSingleCourseFailure,
   submitCourseRequest,
   submitCourseSuccess,
   submitCourseFailure,
