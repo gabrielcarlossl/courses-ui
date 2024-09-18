@@ -2,6 +2,9 @@ import * as React from 'react'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
 import CourseEditForm from '../form/EditCourseForm'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/Store'
+import FormLoading from '../loading/FormLoading'
 
 const style = {
   position: 'absolute' as const,
@@ -35,6 +38,7 @@ const EditCourseModal: React.FC<IEditCourseModalProps> = ({
   handleClose,
   courseData
 }) => {
+  const { isSaving } = useSelector((state: RootState) => state.CoursesSlice)
   return (
     <div>
 
@@ -45,7 +49,9 @@ const EditCourseModal: React.FC<IEditCourseModalProps> = ({
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 400 }}>
-          <CourseEditForm courseData={courseData} />
+          {
+            isSaving ? <FormLoading /> : <CourseEditForm courseData={courseData} />
+            }
         </Box>
       </Modal>
     </div>
