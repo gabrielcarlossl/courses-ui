@@ -4,9 +4,18 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../redux/Store'
 import { submitFormService } from '../../redux/services/CoursesServices'
 import { Box, styled, Typography } from '@mui/material'
+import { SingleCourse } from '../../redux/Types/Courses'
+import { IErrors } from '../../redux/Types/FormValidation'
 
-const validate = (values: any, file: File | null) => {
-  const errors: any = {}
+const validate = (values: SingleCourse, file: File | null) => {
+  const errors: IErrors = {
+    title: '',
+    start_date: '',
+    end_date: '',
+    knowledge_area: '',
+    attachment: '',
+    description: ''
+  }
   if (!values.title) {
     errors.title = '*O título é obrigatório'
   }
@@ -83,7 +92,7 @@ const CourseForm = () => {
     }
   }
 
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: SingleCourse) => {
     const formData = { ...values, attachment: file }
     dispatch(submitFormService(formData))
   }
@@ -96,7 +105,7 @@ const CourseForm = () => {
     <Form
       onSubmit={onSubmit}
       validate={(values) => validate(values, file)}
-      render={({ handleSubmit, form, submitting, pristine }) => (
+      render={({ handleSubmit, submitting, pristine }) => (
         <form onSubmit={handleSubmit}>
           <Box
             sx={{
@@ -193,15 +202,6 @@ const CourseForm = () => {
                 disabled={submitting || pristine}
               >
                 Enviar
-              </Button>
-              <Button
-                sx={{
-                  fontWeight: 600,
-                }}
-                type="button"
-                onClick={form.reset}
-                disabled={submitting || pristine}>
-                Resetar
               </Button>
             </Box>
           </Box>

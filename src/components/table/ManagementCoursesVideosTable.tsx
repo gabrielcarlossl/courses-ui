@@ -37,7 +37,6 @@ const ManagementCoursesVideosTable: React.FC<IManagementCoursesVideosTableProps>
   const [open, setOpen] = React.useState(false)
   const [courseData, setCourseData] = React.useState<any>()
 
-
   const handleOpen = (singleCourse: any) => {
     setOpen(true)
     setCourseData(singleCourse)
