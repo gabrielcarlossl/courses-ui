@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 
@@ -84,31 +85,33 @@ export const getSingleCoursesService = (id: number) => async (dispatch: AppDispa
 
 export const editSingleCourseService = (values: any) => async (dispatch: AppDispatch): Promise<void> => {
 
-  console.log('values', values)
   const notifySuccess = () => toast.success('Curso editado!')
   const notifyError = () => toast.error('Erro ao editar curso.')
 
   dispatch(submitCourseEditRequest())
 
   const formData = new FormData()
-  formData.append('course[title]', values.title)
-  formData.append('course[start_date]', values.start_date)
-  formData.append('course[end_date]', values.end_date)
-  formData.append('course[knowledge_area]', values.knowledge_area)
-  formData.append('course[description]', values.description)
+  values.title && formData.append('course[title]', values.title)
+  values.start_date && formData.append('course[start_date]', values.start_date)
+  values.end_date && formData.append('course[end_date]', values.end_date)
+  values.knowledge_area && formData.append('course[knowledge_area]', values.knowledge_area)
+  values.description && formData.append('course[description]', values.description)
 
   if (values.attachment && values.attachment) {
-    formData.append('course[attachment]', values.attachment)
+    (values.attachment !== null) && formData.append('course[attachment]', values.attachment)
   }
   try {
-    const response = await fetch(`${COURSES_ENDPOINT}/${values.id}`, {
+    const response = await fetch(`${COURSES_ENDPOINT}/${values?.id}`, {
       method: 'PATCH',
       body: formData,
     })
 
-    if (response.status === 201) {
+    if (response.status === 200) {
       dispatch(submitCourseEditSuccess())
       notifySuccess()
+      setTimeout(() => {
+        window.location.reload()
+      }, 2000)
     }
 
   } catch (error: any) {

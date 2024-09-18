@@ -2,6 +2,7 @@
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
+import CourseEditForm from '../form/EditCourseForm'
 
 const style = {
   position: 'absolute' as const,
@@ -27,9 +28,6 @@ const EditCourseModal: React.FC<IEditCourseModalProps> = ({
   handleClose,
   courseData
 }) => {
-
-  console.log('courseData', courseData)
-
   return (
     <div>
 
@@ -40,7 +38,7 @@ const EditCourseModal: React.FC<IEditCourseModalProps> = ({
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 400 }}>
-          editar curso
+         <CourseEditForm  courseData={courseData} />
         </Box>
       </Modal>
     </div>

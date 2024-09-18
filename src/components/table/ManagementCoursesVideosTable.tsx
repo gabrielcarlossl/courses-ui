@@ -32,7 +32,6 @@ type IManagementCoursesVideosTableProps = {
 const ManagementCoursesVideosTable: React.FC<IManagementCoursesVideosTableProps> = ({
   data
 }) => {
-
   const dispatch = useDispatch<AppDispatch>()
   const [open, setOpen] = React.useState(false)
   const [courseData, setCourseData] = React.useState<any>()
