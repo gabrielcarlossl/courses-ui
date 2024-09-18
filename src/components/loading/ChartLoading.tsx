@@ -1,7 +1,6 @@
 import { Text } from '@chakra-ui/react'
 import { Box, Skeleton, Typography } from '@mui/material'
 
-
 const ChartLoading = () => {
   return (
     <>
@@ -23,8 +22,8 @@ const ChartLoading = () => {
         <Box>
           <Skeleton
             variant="circular"
-            width={250}
-            height={250}
+            width={200}
+            height={200}
             animation="wave"
             sx={{ mb: 2 }}
           />
