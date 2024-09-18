@@ -9,7 +9,7 @@ import ChartLoading from '../components/loading/ChartLoading'
 const StorageUsagePage = () => {
   const [usage, setUsage] = useState({ storage_used: 0 })
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<any>('')
+  const [error, setError] = useState<any>()
 
   React.useEffect(() => {
     document.title = "Stremio Courses | Monitoramento"
@@ -30,8 +30,6 @@ const StorageUsagePage = () => {
 
     fetchStorageUsage()
   }, [])
-
-  console.log('usage', usage)
 
   if (loading) {
     return <ChartLoading />

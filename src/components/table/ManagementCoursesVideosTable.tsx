@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react'
 
 // Assets
@@ -29,6 +28,15 @@ const TableCellStyled = styled(TableCell)({
 type IManagementCoursesVideosTableProps = {
   data: Course[]
 }
+type CourseData = {
+  attachment_url: string
+  description: string
+  end_date: string
+  id: number | null
+  knowledge_area: string
+  start_date: string
+  title: string
+}
 
 const ManagementCoursesVideosTable: React.FC<IManagementCoursesVideosTableProps> = ({
   data
@@ -36,10 +44,18 @@ const ManagementCoursesVideosTable: React.FC<IManagementCoursesVideosTableProps>
   const theme = useTheme()
   const dispatch = useDispatch<AppDispatch>()
   const [open, setOpen] = React.useState(false)
-  const [courseData, setCourseData] = React.useState<any>()
-  const isXsOrSm = useMediaQuery(theme.breakpoints.down('sm'))
+  const [courseData, setCourseData] = React.useState<CourseData>({
+    attachment_url: '',
+    description: '',
+    end_date: '',
+    id: null,
+    knowledge_area: '',
+    start_date: '',
+    title: ''
+  })
 
-  const handleOpen = (singleCourse: any) => {
+  const isXsOrSm = useMediaQuery(theme.breakpoints.down('sm'))
+  const handleOpen = (singleCourse: CourseData) => {
     setOpen(true)
     setCourseData(singleCourse)
   }

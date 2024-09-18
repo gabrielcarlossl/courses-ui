@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react'
 import { Form, Field } from 'react-final-form'
 import { useDispatch } from 'react-redux'
@@ -49,7 +48,19 @@ const AuxContainer = styled(Box)({
   }
 })
 
-const CourseEditForm = ({courseData}: any) => {
+type ICourseEditFormProp = {
+  courseData: {
+    attachment_url: string
+    description: string
+    end_date: string
+    id: number | null
+    knowledge_area: string
+    start_date: string
+    title: string
+  }
+}
+
+const CourseEditForm: React.FC<ICourseEditFormProp> = ({ courseData }) => {
   const dispatch = useDispatch<AppDispatch>()
   const [file, setFile] = useState<File | null>(null)
   const [fileName, setFileName] = useState<string>('Nenhum arquivo selecionado')
@@ -149,7 +160,6 @@ const CourseEditForm = ({courseData}: any) => {
                   <Field name="description" component="textarea" placeholder="Descrição" />
                 </AuxContainer>
               </FieldContainer>
-
               <Box
                 sx={{
                   display: 'flex',
@@ -167,7 +177,6 @@ const CourseEditForm = ({courseData}: any) => {
                 </Button>
               </Box>
             </Box>
-
           </form>
         )
       }}

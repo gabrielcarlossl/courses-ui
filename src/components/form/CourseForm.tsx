@@ -5,17 +5,10 @@ import { AppDispatch } from '../../redux/Store'
 import { submitFormService } from '../../redux/services/CoursesServices'
 import { Box, styled, Typography } from '@mui/material'
 import { SingleCourse } from '../../redux/Types/Courses'
-import { IErrors } from '../../redux/Types/FormValidation'
 
 const validate = (values: SingleCourse, file: File | null) => {
-  const errors: IErrors = {
-    title: '',
-    start_date: '',
-    end_date: '',
-    knowledge_area: '',
-    attachment: '',
-    description: ''
-  }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const errors: any = {}
   if (!values.title) {
     errors.title = '*O título é obrigatório'
   }

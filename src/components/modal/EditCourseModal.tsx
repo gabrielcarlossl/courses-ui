@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from 'react'
 import Box from '@mui/material/Box'
 import Modal from '@mui/material/Modal'
@@ -21,7 +20,15 @@ const style = {
 type IEditCourseModalProps = {
   open: boolean
   handleClose: () => void
-  courseData: any
+  courseData: {
+    attachment_url: string
+    description: string
+    end_date: string
+    id: number | null
+    knowledge_area: string
+    start_date: string
+    title: string
+  }
 }
 const EditCourseModal: React.FC<IEditCourseModalProps> = ({
   open,
@@ -38,7 +45,7 @@ const EditCourseModal: React.FC<IEditCourseModalProps> = ({
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 400 }}>
-         <CourseEditForm  courseData={courseData} />
+          <CourseEditForm courseData={courseData} />
         </Box>
       </Modal>
     </div>
