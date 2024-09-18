@@ -30,7 +30,6 @@ const FormLoading = () => {
          
           <Box width={360} display='flex' justifyContent='space-between'>
             <Skeleton variant="rounded" width={100} height={40} />
-            <Skeleton variant="rounded" width={100} height={40} />
           </Box>
         </Stack>
   )
