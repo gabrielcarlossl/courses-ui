@@ -16,6 +16,7 @@
     "@mui/icons-material": "^6.1.0",
     "@mui/material": "^6.1.0",
     "@mui/styled-engine-sc": "^6.1.0",
+    "@mui/x-charts": "^7.17.0",
     "@reduxjs/toolkit": "^2.2.7",
     "@toolpad/core": "latest",
     "@types/invariant": "latest",
@@ -48,5 +49,9 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0 || ^18.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0"
   }
 }
